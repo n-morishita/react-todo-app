@@ -114,7 +114,7 @@ const TodoList = () => {
                     return (
                         <li key={value.id}>
                             {/* <Checkbox key={value.id} sx={{ color: "white" }} onChange={() => {value.completed = true; loadTodos();}} /> */}
-                            <Checkbox sx={{ color: "white", '&.Mui-checked': { color: "white", } }} onChange={() => { handleCompleted(value); fetchTodos();}} />
+                            <Checkbox sx={{ color: "white", '&.Mui-checked': { color: "white", } }} onChange={() => { handleCompleted(value);}} />
                             <div className='TodoName'>{value.title}</div>
                             <DeleteIcon sx={{cursor: "pointer"}} onClick={() => {handleDelete(value)}}/>
                         </li>
@@ -127,7 +127,7 @@ const TodoList = () => {
                 <ul>{dones.map((value) => {
                     return (
                         <li key={value.id}>
-                            <Checkbox sx={{ color: "white", '&.Mui-checked': { color: "white", }}} onChange={() => { handleCompleted(value); fetchTodos()}} defaultChecked />
+                            <Checkbox sx={{ color: "white", '&.Mui-checked': { color: "white", }}} onChange={() => { handleCompleted(value);}} defaultChecked />
                             <div className='TodoName TodoDone'>{value.title}</div>
                             <DeleteIcon sx={{cursor: "pointer"}} onClick={() => {handleDelete(value)}}/>
                         </li>
