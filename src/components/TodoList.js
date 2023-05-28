@@ -10,14 +10,14 @@ const TodoList = () => {
     const [enterTodo, setEnterTodo] = useState("");
     const [addTodo, setAddTodo] = useState("")
 
-    const loadTodos = () => {
+    const fetchTodos = () => {
         fetch("http://localhost:8080/todoData")
             .then((response) => response.json())
             .then((json) => setAllData(json))
             
     }
 
-    const readTodos = () => {
+    const loadTodos = () => {
         const newTodos = []
         const newDones = []
         allData.forEach((value) => {
@@ -32,11 +32,11 @@ const TodoList = () => {
     }
 
     useEffect(() => {
-        loadTodos();
+        fetchTodos();
     },[])
 
     useEffect(() => {
-        readTodos()
+        loadTodos()
     },[allData])
 
 
@@ -51,7 +51,7 @@ const TodoList = () => {
         }
 
         fetch(`http://localhost:8080/todoData/${value.id}`, putOption)
-            .then((response) => loadTodos())
+            .then((response) => fetchTodos())
 
     }
 
@@ -62,7 +62,7 @@ const TodoList = () => {
         }
 
         fetch(`http://localhost:8080/todoData/${value.id}`, deleteOption)
-            .then((response) => loadTodos())
+            .then((response) => fetchTodos())
 
     }
 
@@ -70,9 +70,9 @@ const TodoList = () => {
     const handleAddTodo = (e) => {
         const inputTodo = e.target.value
         const trimedTodo = inputTodo.trim()
+
         setEnterTodo(inputTodo)
         setAddTodo(trimedTodo)
-
     }
 
 
@@ -88,7 +88,7 @@ const TodoList = () => {
             }
     
             fetch('http://localhost:8080/todoData',postOption)
-                .then((response) => loadTodos())
+                .then((response) => fetchTodos())
 
             
             setEnterTodo("")
@@ -99,11 +99,11 @@ const TodoList = () => {
 
     }
 
-    // const pressEnter = (e) => {
-    //     if (e.key === 'Enter') {
-    //         alert("press enter")
-    //     }
-    // }
+    window.document.onkeydown = (e) => {
+        if (e.key === 'Enter') {
+            handleClickAddTodo()
+        }
+    }
 
  return (
     <div className='TodoMain'>
@@ -113,8 +113,8 @@ const TodoList = () => {
                 <ul>{todos.map((value) => {
                     return (
                         <li key={value.id}>
-                            {/* <Checkbox key={value.id} sx={{ color: "white" }} onChange={() => {value.completed = true; readTodos();}} /> */}
-                            <Checkbox sx={{ color: "white", '&.Mui-checked': { color: "white", } }} onChange={() => { handleCompleted(value); loadTodos();}} />
+                            {/* <Checkbox key={value.id} sx={{ color: "white" }} onChange={() => {value.completed = true; loadTodos();}} /> */}
+                            <Checkbox sx={{ color: "white", '&.Mui-checked': { color: "white", } }} onChange={() => { handleCompleted(value); fetchTodos();}} />
                             <div className='TodoName'>{value.title}</div>
                             <DeleteIcon sx={{cursor: "pointer"}} onClick={() => {handleDelete(value)}}/>
                         </li>
@@ -127,7 +127,7 @@ const TodoList = () => {
                 <ul>{dones.map((value) => {
                     return (
                         <li key={value.id}>
-                            <Checkbox sx={{ color: "white", '&.Mui-checked': { color: "white", }}} onChange={() => { handleCompleted(value); loadTodos()}} defaultChecked />
+                            <Checkbox sx={{ color: "white", '&.Mui-checked': { color: "white", }}} onChange={() => { handleCompleted(value); fetchTodos()}} defaultChecked />
                             <div className='TodoName TodoDone'>{value.title}</div>
                             <DeleteIcon sx={{cursor: "pointer"}} onClick={() => {handleDelete(value)}}/>
                         </li>
@@ -138,7 +138,7 @@ const TodoList = () => {
         </div>
         <div className='AddTodo'>
             <TextField fullWidth value={enterTodo} variant='standard' label="Enter New Todo"  size='small' onChange={handleAddTodo} sx={{backgroundColor: "white", color:"#4c6585"}}></TextField>
-            <IconButton size='small'  onClick={handleClickAddTodo}><AddIcon  sx={{color: "white"}} /></IconButton>
+            <IconButton size='small' onClick={handleClickAddTodo}><AddIcon  sx={{color: "white"}} /></IconButton>
         </div>
     </div>
   )
