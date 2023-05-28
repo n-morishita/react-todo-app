@@ -7,7 +7,8 @@ const TodoList = () => {
     const [allData, setAllData] = useState([])
     const [todos, setTodos] = useState([]);
     const [dones, setDones] = useState([]);
-    const [addTodo, setAddTodo] = useState("");
+    const [enterTodo, setEnterTodo] = useState("");
+    const [addTodo, setAddTodo] = useState("")
 
     const loadTodos = () => {
         fetch("http://localhost:8080/todoData")
@@ -69,8 +70,11 @@ const TodoList = () => {
     const handleAddTodo = (e) => {
         const inputTodo = e.target.value
         const trimedTodo = inputTodo.trim()
+        setEnterTodo(inputTodo)
         setAddTodo(trimedTodo)
+
     }
+
 
     const handleClickAddTodo = () => {
 
@@ -86,11 +90,20 @@ const TodoList = () => {
             fetch('http://localhost:8080/todoData',postOption)
                 .then((response) => loadTodos())
 
+            
+            setEnterTodo("")
+
         } else {
             alert("Todoが記入されていません")
         }
 
     }
+
+    // const pressEnter = (e) => {
+    //     if (e.key === 'Enter') {
+    //         alert("press enter")
+    //     }
+    // }
 
  return (
     <div className='TodoMain'>
@@ -101,9 +114,9 @@ const TodoList = () => {
                     return (
                         <li key={value.id}>
                             {/* <Checkbox key={value.id} sx={{ color: "white" }} onChange={() => {value.completed = true; readTodos();}} /> */}
-                            <Checkbox sx={{ color: "white" }} onChange={() => { handleCompleted(value); loadTodos();}} />
+                            <Checkbox sx={{ color: "white", '&.Mui-checked': { color: "white", } }} onChange={() => { handleCompleted(value); loadTodos();}} />
                             <div className='TodoName'>{value.title}</div>
-                            <DeleteIcon sx={{cursor: "pointer", paddingTop: "3px"}} onClick={() => {handleDelete(value)}}/>
+                            <DeleteIcon sx={{cursor: "pointer"}} onClick={() => {handleDelete(value)}}/>
                         </li>
                     )
                     })}
@@ -116,7 +129,7 @@ const TodoList = () => {
                         <li key={value.id}>
                             <Checkbox sx={{ color: "white", '&.Mui-checked': { color: "white", }}} onChange={() => { handleCompleted(value); loadTodos()}} defaultChecked />
                             <div className='TodoName TodoDone'>{value.title}</div>
-                            <DeleteIcon sx={{cursor: "pointer", paddingTop: "3px"}} onClick={() => {handleDelete(value)}}/>
+                            <DeleteIcon sx={{cursor: "pointer"}} onClick={() => {handleDelete(value)}}/>
                         </li>
                     )
                     })}
@@ -124,8 +137,8 @@ const TodoList = () => {
             </div>
         </div>
         <div className='AddTodo'>
-            <TextField fullWidth  variant='standard' label="Enter New Todo"  size='small' onChange={handleAddTodo} sx={{backgroundColor: "white", color:"#4c6585"}}></TextField>
-            <IconButton size='small' onClick={handleClickAddTodo}><AddIcon  sx={{color: "white"}} /></IconButton>
+            <TextField fullWidth value={enterTodo} variant='standard' label="Enter New Todo"  size='small' onChange={handleAddTodo} sx={{backgroundColor: "white", color:"#4c6585"}}></TextField>
+            <IconButton size='small'  onClick={handleClickAddTodo}><AddIcon  sx={{color: "white"}} /></IconButton>
         </div>
     </div>
   )
