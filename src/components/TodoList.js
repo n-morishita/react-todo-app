@@ -46,7 +46,7 @@ const TodoList = () => {
 
         const putOption = {
             method: 'PUT',
-            body: JSON.stringify({id:value.id, title: value.title, completed: !value.completed}),
+            body: JSON.stringify({...value, completed: !value.completed}),
             headers: {
                 'Content-Type':`application/json`
             },
