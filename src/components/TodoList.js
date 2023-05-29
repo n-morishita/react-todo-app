@@ -10,6 +10,7 @@ const TodoList = () => {
     const [enterTodo, setEnterTodo] = useState("");
     const [addTodo, setAddTodo] = useState("")
 
+    // GET
     const fetchTodos = () => {
         fetch("http://localhost:8080/todoData")
             .then((response) => response.json())
@@ -40,6 +41,7 @@ const TodoList = () => {
     },[allData])
 
 
+    // PUT
     const handleCompleted = (value) => {
 
         const putOption = {
@@ -55,6 +57,7 @@ const TodoList = () => {
 
     }
 
+    // DELETE
     const handleDelete = (value) => {
 
         const deleteOption = {
@@ -67,7 +70,7 @@ const TodoList = () => {
     }
 
     
-    const handleAddTodo = (e) => {
+    const handleEnterAddTodo = (e) => {
         const inputTodo = e.target.value
         const trimedTodo = inputTodo.trim()
 
@@ -76,6 +79,7 @@ const TodoList = () => {
     }
 
 
+    // POST
     const handleClickAddTodo = () => {
 
         if (!Object.is(addTodo, "")){
@@ -138,7 +142,7 @@ const TodoList = () => {
             </div>
         </div>
         <div className='AddTodo'>
-            <TextField fullWidth value={enterTodo} variant='standard' label="Enter New Todo"  size='small' onChange={handleAddTodo} sx={{backgroundColor: "white", color:"#4c6585"}}></TextField>
+            <TextField fullWidth value={enterTodo} variant='standard' label="Enter New Todo"  size='small' onChange={handleEnterAddTodo} sx={{backgroundColor: "white", color:"#4c6585"}}></TextField>
             <IconButton size='small' onClick={handleClickAddTodo}><AddIcon  sx={{color: "white"}} /></IconButton>
         </div>
     </div>
