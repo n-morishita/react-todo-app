@@ -92,6 +92,7 @@ const TodoList = () => {
 
             
             setEnterTodo("")
+            setAddTodo("")
 
         } else {
             alert("Todoが入力されていません。")
