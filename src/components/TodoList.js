@@ -118,7 +118,6 @@ const TodoList = () => {
                 <ul>{todos.map((value) => {
                     return (
                         <li key={value.id}>
-                            {/* <Checkbox sx={{ color: "white" }} onChange={() => {value.completed = true; loadTodos();}} /> */}
                             <Checkbox sx={{ color: "white", '&.Mui-checked': { color: "white", } }} onChange={() => { handleCompleted(value);}} />
                             <div className='TodoName'>{value.title}</div>
                             <DeleteIcon sx={{cursor: "pointer"}} onClick={() => {handleDelete(value)}}/>
