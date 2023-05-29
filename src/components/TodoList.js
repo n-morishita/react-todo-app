@@ -14,8 +14,7 @@ const TodoList = () => {
     const fetchTodos = () => {
         fetch("http://localhost:8080/todoData")
             .then((response) => response.json())
-            .then((json) => setAllData(json))
-            
+            .then((json) => setAllData(json))            
     }
 
     const loadTodos = () => {
@@ -94,7 +93,6 @@ const TodoList = () => {
             fetch('http://localhost:8080/todoData',postOption)
                 .then((response) => fetchTodos())
 
-            
             setEnterTodo("")
             setAddTodo("")
 
