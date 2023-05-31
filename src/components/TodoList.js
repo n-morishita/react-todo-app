@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { IconButton, TextField, Checkbox } from "@mui/material"
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Todo from './Todo';
 
 const TodoList = () => {
     const [allData, setAllData] = useState([])
@@ -9,6 +10,8 @@ const TodoList = () => {
     const [dones, setDones] = useState([]);
     const [enterTodo, setEnterTodo] = useState("");
     const [addTodo, setAddTodo] = useState("")
+
+    const Swal = require('sweetalert2');
 
     // GET
     const fetchTodos = () => {
@@ -84,7 +87,7 @@ const TodoList = () => {
         if (!Object.is(addTodo, "")){
             const postOption = {
                 method: 'POST',
-                body: JSON.stringify({title: addTodo, completed: false}),
+                body: JSON.stringify({title: addTodo, completed: false, editable: false}),
                 headers: {
                     'Content-Type':`application/json`
                 },
@@ -97,10 +100,29 @@ const TodoList = () => {
             setAddTodo("")
 
         } else {
-            alert("Todoが入力されていません。")
+            // alert("Todoが入力されていません。")
+            Swal.fire({
+                title: 'Error !',
+                text: 'Todoが入力されていません。',
+                icon: 'error',
+                position: 'top-end',
+                iconColor: 'white',
+                color: 'white',
+                width: '24rem',
+                showConfirmButton: false,
+                background: '#F27474',
+                padding: '0 16px',
+                toast: true,
+                timer: 5000,
+                timerProgressBar: true,
+              });
         }
 
     }
+
+    // const editTodo = (value) => {
+    //    value.editActive = !value.editActive
+    // }
 
     window.document.onkeydown = (e) => {
         if (e.key === 'Enter') {
@@ -115,11 +137,7 @@ const TodoList = () => {
                 <h1>Todo</h1>
                 <ul>{todos.map((value) => {
                     return (
-                        <li key={value.id}>
-                            <Checkbox sx={{ color: "white", '&.Mui-checked': { color: "white", } }} onChange={() => { handleCompleted(value);}} />
-                            <div className='TodoName'>{value.title}</div>
-                            <DeleteIcon sx={{cursor: "pointer"}} onClick={() => {handleDelete(value)}}/>
-                        </li>
+                        <Todo value={value} handleCompleted={handleCompleted} handleDelete={handleDelete} fetchTodos={fetchTodos}/>
                     )
                     })}
                 </ul>

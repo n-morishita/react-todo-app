@@ -63,14 +63,42 @@
   padding: 5px;
 }
 
-.TodoName {
+.TodoItem div{
+  display: flex;
+  flex-direction: row;
+}
+
+.TodoCheckbox {
+  margin-right: 5px;
+}
+
+.TodoTitle {
   display: flex;
   align-items: center;
-  padding: 0 5px;
+  padding: 10px 5px;
   transform: scale(1.2);
   width: 100px;
   overflow-wrap: anywhere;
 } 
+
+
+.MainValue {
+  margin-right: auto;
+}
+
+
+.EditTitle {
+  display: flex;
+}
+
+.EditTitle input {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: start;
+}
+
 
 .TodoDone {
   text-decoration: line-through;
