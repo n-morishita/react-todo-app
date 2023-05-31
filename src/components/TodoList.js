@@ -3,6 +3,7 @@ import { IconButton, TextField, Checkbox } from "@mui/material"
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Todo from './Todo';
+import Done from './Done';
 
 const TodoList = () => {
     const [allData, setAllData] = useState([])
@@ -162,11 +163,7 @@ const TodoList = () => {
                 <h1>Done</h1>
                 <ul>{dones.map((value) => {
                     return (
-                        <li key={value.id}>
-                            <Checkbox sx={{ color: "white", '&.Mui-checked': { color: "white", }}} onChange={() => { handleCompleted(value);}} defaultChecked />
-                            <div className='TodoName TodoDone'>{value.title}</div>
-                            <DeleteIcon sx={{cursor: "pointer"}} onClick={() => {handleDelete(value)}}/>
-                        </li>
+                        <Done value={value} handleCompleted={handleCompleted} handleDelete={handleDelete}/>
                     )
                     })}
                 </ul>

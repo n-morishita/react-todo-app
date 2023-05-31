@@ -3,7 +3,7 @@
     {
       "id": 1,
       "title": "Todo1",
-      "completed": false,
+      "completed": true,
       "editable": false
     },
     {
