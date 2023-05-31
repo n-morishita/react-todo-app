@@ -99,6 +99,22 @@ const TodoList = () => {
             setEnterTodo("")
             setAddTodo("")
 
+            Swal.fire({
+                title: 'Success !',
+                text: '新しいTodoが登録されました !',
+                icon: 'success',
+                position: 'top-end',
+                iconColor: 'white',
+                color: 'white',
+                width: '24rem',
+                showConfirmButton: false,
+                background: '#5ed16c',
+                padding: '0 16px',
+                toast: true,
+                timer: 5000,
+                timerProgressBar: true,
+              });
+
         } else {
             // alert("Todoが入力されていません。")
             Swal.fire({
